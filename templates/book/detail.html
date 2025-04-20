@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Scraping - Détail du Livre</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #063970;
+            --secondary-color: #063970;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            flex: 1;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 30px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: var(--shadow);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        .book-detail {
+            display: flex;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .book-cover {
+            flex: 0 0 300px;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f9f9f9;
+        }
+
+        .book-cover img {
+            max-width: 100%;
+            max-height: 400px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .book-info {
+            flex: 1;
+            padding: 40px;
+        }
+
+        .book-title {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .book-author {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            color: #666;
+        }
+
+        .book-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .meta-item i {
+            color: var(--primary-color);
+        }
+
+        .book-price {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #2e7d32;
+            margin-bottom: 30px;
+        }
+
+        .book-description {
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .book-rating {
+            color: #ff9800;
+            margin-bottom: 30px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+
+        .back-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .back-btn i {
+            margin-right: 8px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .book-detail {
+                flex-direction: column;
+            }
+
+            .book-cover {
+                flex: 0 0 auto;
+                padding: 20px;
+            }
+
+            .book-info {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .book-title {
+                font-size: 1.5rem;
+            }
+
+            .book-author {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-book-open"></i> Détail du Livre</h1>
+            <a href="{% url 'book:start_scrape' %}" class="back-btn" style="margin-top: 15px; display: inline-block;">
+                <i class="fas fa-play-circle"></i> Démarrer le scraping
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="book-detail">
+            <div class="book-cover">
+                <img src="{{ book.image_local.url }}" alt="Couverture de {{ book.title }}">
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">{{ book.title }}</h2>
+                <p class="book-author">par {{ book.author }}</p>
+
+                <div class="book-meta">
+                    <span class="meta-item">
+                        <i class="fas fa-star"></i> Note: {{ book.rating }}/5
+                    </span>
+                    <span class="meta-item">
+                        <i class="fas fa-tag"></i> Catégorie: {{ book.category }}
+                    </span>
+                    <span class="meta-item">
+                        <i class="fas fa-barcode"></i> UPC: {{ book.upc }}
+                    </span>
+                    <span class="meta-item">
+                        <i class="fas fa-box-open"></i> Disponibilité: {{ book.availability }}
+                    </span>
+                </div>
+
+                <div class="book-price">{{ book.price }}</div>
+
+                <p class="book-description">{{ book.description }}</p>
+
+                <a href="{% url 'home' %}" class="back-btn" style="margin-top: 20px;">
+                    <i class="fas fa-home"></i> Retour à l'accueil
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

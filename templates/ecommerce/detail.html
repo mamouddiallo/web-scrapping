@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des produits Kilimall</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .product-card:hover {
+            transform: scale(1.03);
+        }
+
+        .product-card img {
+            max-width: 100%;
+            max-height: 180px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .product-card h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .product-card p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .product-card a {
+            display: inline-block;
+            background-color: #00b894;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .product-card a:hover {
+            background-color: #019875;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align:center; padding-top: 20px;">Produits Kilimall</h1>
+
+    <div class="product-grid">
+        {% for product in products %}
+            <div class="product-card">
+                <img src="{{ product.image }}" alt="{{ product.titre }}">
+                <h3>{{ product.titre }}</h3>
+                <p>{{ product.prix }} KSh</p>
+                <a href="{% url 'ecommerce:product_detail' pk=product.pk %}">Voir les détails</a>
+            </div>
+        {% empty %}
+            <p>Aucun produit disponible.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
