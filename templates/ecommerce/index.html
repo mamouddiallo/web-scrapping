@@ -250,8 +250,8 @@
                     <p class="product-title">{{ product.titre }}</p> 
                     <span class="product-price">KSh {{ product.prix }}</span>
                     <p class="product-description">{{ product.product_url|truncatechars:60 }}</p>
-                    <a href="{{ product.product_url }}" class="product-link" target="_blank">
-                        <i class="fas fa-eye"></i> Voir sur Kilimall
+                    <a href="{% url 'ecommerce:ecommerce_detail' product.id %}" class="product-link" target="_blank">
+                        <i class="fas fa-eye"></i> Voir plus
                     </a>
                     <div class="product-meta">
                         <span><i class="fas fa-calendar"></i> {{ product.date_ajout|date:"d/m/Y H:i" }}</span>

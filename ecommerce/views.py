@@ -115,7 +115,6 @@ def scraper_kilimall_view():
 
     driver.quit()
 
-scraper_kilimall_view()
 
 
 # Vue pour démarrer le scraping des produits Olabo
@@ -130,5 +129,5 @@ def index(request):
 
 # Vue pour afficher les détails d'un produit
 def ecommerce_detail(request, pk):
-    products = ProduitKilimall.objects.all().order_by('-date_ajout')
-    return render(request, 'ecommerce/detail.html', {'product': products})
+    product = get_object_or_404(ProduitKilimall, pk=pk)
+    return render(request, 'ecommerce/detail.html', {'product': product})

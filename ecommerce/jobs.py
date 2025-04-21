@@ -60,7 +60,3 @@ def scraper_kilimall_view():
         except Exception as e:
             print(f"❌ Erreur produit : {e}")
 
-    return {
-        "message": f"{len(produits_ajoutes)} nouveaux produits ajoutés.",
-        "produits": produits_ajoutes
-    }
