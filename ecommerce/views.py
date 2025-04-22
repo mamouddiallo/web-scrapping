@@ -16,7 +16,7 @@ from decimal import Decimal  # pour conversion juste avant l'enregistrement
 
 from urllib.parse import urljoin
 from urllib.request import urlretrieve
-
+from celery import shared_task
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import os
@@ -25,7 +25,7 @@ from urllib.parse import urljoin
 from selenium.webdriver.common.action_chains import ActionChains
 
 
-
+@shared_task
 def scraper_kilimall_view():
     url = "https://www.kilimall.co.ke/category/tvaudiovideo?id=2069&form=category"
 
@@ -116,10 +116,11 @@ def scraper_kilimall_view():
     driver.quit()
 
 
-
 # Vue pour démarrer le scraping des produits Olabo
 def start_ecommerce_job(request):
-    run_ecommerce.delay()
+    products = ProduitKilimall.objects.all()
+    if products.count()== 0:
+        scraper_kilimall_view.delay()
     return redirect('ecommerce:ecom_index')
 
 # Vue pour afficher la liste des produits

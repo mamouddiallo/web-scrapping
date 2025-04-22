@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'quote.apps.QuoteConfig',
     'base.apps.BaseConfig',
     'ecommerce.apps.EcommerceConfig',
+    'house.apps.HouseConfig',
 ]
 
 

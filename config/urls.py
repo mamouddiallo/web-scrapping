@@ -29,6 +29,8 @@ urlpatterns = [
     path('quote/', include('quote.urls')),
     path('ecommerce/', include('ecommerce.urls')),
     path('', include('base.urls')),
+    path('house/', include('house.urls')),
+    
     
 ]
 

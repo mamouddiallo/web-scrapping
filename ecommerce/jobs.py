@@ -6,7 +6,7 @@ from django.utils import timezone
 from .models import ProduitKilimall
 from celery import shared_task
 
-@shared_task
+
 def scraper_kilimall_view():
     url = "https://www.kilimall.co.ke/category/tvaudiovideo?id=2069&form=category"
     headers = {

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des produits Kilimall</title>
+    <style>
+        :root {
+            --primary-color: #2d87b8;
+            --primary-hover: #1a6a94;
+            --secondary-color: #34b7a1;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+        }
+
+        /* Bouton Retour */
+        .back-button {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: var(--shadow);
+            z-index: 10;
+        }
+
+        .back-button:hover {
+            background-color: white;
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .header {
+            text-align: center;
+            padding: 60px 0 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            width: 300px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Conteneur image agrandi */
+        .product-image {
+            height: 250px; /* Taille augmentée */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #f8f8f8;
+        }
+
+        .product-image img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            transition: all 0.4s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-card h3 {
+            font-size: 1.3rem;
+            margin: 15px 0;
+            color: var(--text-dark);
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 20px 0;
+        }
+
+        .product-link {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-size: 1rem;
+        }
+
+        .product-link:hover {
+            background-color: white;
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .back-button {
+                top: 15px;
+                left: 15px;
+                padding: 8px 15px;
+            }
+            
+            .header {
+                padding-top: 50px;
+            }
+            
+            .product-card {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            .product-image {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Bouton Retour -->
+    <a href="{% url 'ecommerce:index' %}" class="back-button">← Retour</a>
+
+    <header class="header">
+        <h1>Produits Kilimall</h1>
+    </header>
+
+    <div class="product-grid">
+        <!-- Exemple de produit - à remplacer par ta boucle dynamique -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="{{ product.image_url }}" alt="{{ product.titre }}">
+            </div>
+            <h3>{{ product.titre }}</h3>
+            <p class="product-price">{{ product.prix }}</p>
+            <a href="{{ product.product_url }}" class="product-link" target="_blank">Voir sur Kilimall</a>
+        </div>
+
+        <!-- Dupliquer cette structure pour chaque produit -->
+    </div>
+
+    <footer class="footer">
+        <p>© 2025 Kilimall - Tous droits réservés</p>
+    </footer>
+</body>
+</html>
