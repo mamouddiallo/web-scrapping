@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -30,7 +32,7 @@ SECRET_KEY = 'django-insecure-8#31uep97^9v6r1bt3xpph6z=k6yg*lfm1i!*-wprchttg34!q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ str(os.getenv("ALLOWED_HOSTS"))]
 
 
 # Application definition
@@ -50,6 +52,9 @@ INSTALLED_APPS = [
     'base.apps.BaseConfig',
     'ecommerce.apps.EcommerceConfig',
     'house.apps.HouseConfig',
+    'django_celery_results',
+    'django_celery_beat',
+    
 ]
 
 
@@ -89,8 +94,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
       "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "mydatabase",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": str(os.getenv("POSTGRES_DB")),
+        "USER": str(os.getenv("POSTGRES_USER")),
+        "PASSWORD": str(os.getenv("POSTGRES_PASSWORD")),
+        "HOST": str(os.getenv("POSTGRES_HOST")),
+        "PORT": "5432",
     }
 }
 
@@ -139,5 +148,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # celery settings
-CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_BROKER_URL = str(os.getenv('CELERY_BROKER_URL'))
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
